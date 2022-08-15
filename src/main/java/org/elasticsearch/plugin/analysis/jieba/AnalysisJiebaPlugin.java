@@ -24,11 +24,30 @@ public class AnalysisJiebaPlugin extends Plugin implements AnalysisPlugin {
     Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> extra = new HashMap<>();
 
     //extra.put("jieba_hk_search", JiebaTokenizerFactory::getJiebaSearchTokenizerFactory);
+    extra.put("iieba_hk_search",
+            (indexSettings, environment, name, settings) ->
+                    JiebaTokenizerFactory.getJiebaSearchTokenizerFactory(indexSettings, environment, name, settings, "hk")
+    );
     //extra.put("jieba_hk_index", JiebaTokenizerFactory::getJiebaIndexTokenizerFactory);
 
-    extra.put("jieba_tw_search", JiebaTokenizerFactory::getJiebaSearchTokenizerFactory);
-    extra.put("jieba_tw_index", JiebaTokenizerFactory::getJiebaIndexTokenizerFactory);
+    extra.put("iieba_hk_index",
+            (indexSettings, environment, name, settings) ->
+                    JiebaTokenizerFactory.getJiebaSearchTokenizerFactory(indexSettings, environment, name, settings, "hk")
+    );
 
+
+    /*
+    //extra.put("jieba_tw_search", JiebaTokenizerFactory::getJiebaSearchTokenizerFactory, "tw");
+    extra.put("iieba_tw_search",
+            (indexSettings, environment, name, settings) ->
+                    JiebaTokenizerFactory.getJiebaSearchTokenizerFactory(indexSettings, environment, name, settings, "tw")
+    );
+    //extra.put("jieba_tw_index", JiebaTokenizerFactory::getJiebaIndexTokenizerFactory);
+    extra.put("ieba_tw_index",
+            (indexSettings, environment, name, settings) ->
+                    JiebaTokenizerFactory.getJiebaSearchTokenizerFactory(indexSettings, environment, name, settings, "tw")
+    );
+    */
 
     return extra;
   }
@@ -38,10 +57,30 @@ public class AnalysisJiebaPlugin extends Plugin implements AnalysisPlugin {
     Map<String, AnalysisModule.AnalysisProvider<AnalyzerProvider<? extends Analyzer>>> extra = new HashMap<>();
 
     //extra.put("jieba_hk_search", JiebaAnalyzerProvider::getJiebaSearchAnalyzerProvider);
+    extra.put("jieba_hk_search",
+            (indexSettings, environment, name, settings) ->
+                    JiebaAnalyzerProvider.getJiebaSearchAnalyzerProvider(indexSettings, environment, name, settings, "hk")
+    );
     //extra.put("jieba_hk_index", JiebaAnalyzerProvider::getJiebaIndexAnalyzerProvider);
+    extra.put("jieba_hk_index",
+            (indexSettings, environment, name, settings) ->
+                    JiebaAnalyzerProvider.getJiebaSearchAnalyzerProvider(indexSettings, environment, name, settings, "hk")
+    );
 
-    extra.put("jieba_tw_search", JiebaAnalyzerProvider::getJiebaSearchAnalyzerProvider);
-    extra.put("jieba_tw_index", JiebaAnalyzerProvider::getJiebaIndexAnalyzerProvider);
+
+    //extra.put("jieba_tw_search", JiebaAnalyzerProvider::getJiebaSearchAnalyzerProvider);
+
+    /*
+    extra.put("jieba_tw_search",
+            (indexSettings, environment, name, settings) ->
+                    JiebaAnalyzerProvider.getJiebaSearchAnalyzerProvider(indexSettings, environment, name, settings, "tw")
+    );
+    //extra.put("jieba_tw_index", JiebaAnalyzerProvider::getJiebaIndexAnalyzerProvider);
+    extra.put("jieba_tw_index",
+            (indexSettings, environment, name, settings) ->
+                    JiebaAnalyzerProvider.getJiebaSearchAnalyzerProvider(indexSettings, environment, name, settings, "tw")
+    );
+    */
 
 
     return extra;

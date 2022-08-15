@@ -18,14 +18,16 @@ public class JiebaAnalyzerProvider extends AbstractIndexAnalyzerProvider<JiebaAn
                                Environment environment,
                                String name,
                                Settings settings,
-                               JiebaSegmenter.SegMode mode) {
+                               JiebaSegmenter.SegMode mode, String country) {
     super(indexSettings, name, settings);
     if (null != mode) {
       jiebaAnalyzer = new JiebaAnalyzer(mode.name());
     } else {
       jiebaAnalyzer = new JiebaAnalyzer(settings.get("segMode", JiebaSegmenter.SegMode.SEARCH.name()));
     }
-    WordDictionary.getInstance().init(environment.pluginsFile().resolve("elasticsearch-jieba-plugin-tw/dic"));
+    String dir_name = "elasticsearch-jieba-plugin-" + country;
+    String dic = country + "_dic";
+    WordDictionary.getInstance().init(environment.pluginsFile().resolve(dir_name + "/dic/" + dic));
   }
 
   @Override
@@ -36,12 +38,13 @@ public class JiebaAnalyzerProvider extends AbstractIndexAnalyzerProvider<JiebaAn
   public static AnalyzerProvider<? extends Analyzer> getJiebaSearchAnalyzerProvider(IndexSettings indexSettings,
                                                                                     Environment environment,
                                                                                     String s,
-                                                                                    Settings settings) {
+                                                                                    Settings settings,
+                                                                                    String country) {
     JiebaAnalyzerProvider jiebaAnalyzerProvider = new JiebaAnalyzerProvider(indexSettings,
         environment,
         s,
         settings,
-        JiebaSegmenter.SegMode.SEARCH);
+        JiebaSegmenter.SegMode.SEARCH, country);
 
     return jiebaAnalyzerProvider;
   }
@@ -49,12 +52,13 @@ public class JiebaAnalyzerProvider extends AbstractIndexAnalyzerProvider<JiebaAn
   public static AnalyzerProvider<? extends Analyzer> getJiebaIndexAnalyzerProvider(IndexSettings indexSettings,
                                                                                    Environment environment,
                                                                                    String s,
-                                                                                   Settings settings) {
+                                                                                   Settings settings,
+                                                                                   String country) {
     JiebaAnalyzerProvider jiebaAnalyzerProvider = new JiebaAnalyzerProvider(indexSettings,
         environment,
         s,
         settings,
-        JiebaSegmenter.SegMode.INDEX);
+        JiebaSegmenter.SegMode.INDEX, country);
 
     return jiebaAnalyzerProvider;
   }

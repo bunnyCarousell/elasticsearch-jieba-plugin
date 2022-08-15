@@ -35,7 +35,8 @@ public class JiebaTokenizerFactory extends AbstractTokenizerFactory {
   public static TokenizerFactory getJiebaSearchTokenizerFactory(IndexSettings indexSettings,
                                                                 Environment environment,
                                                                 String s,
-                                                                Settings settings) {
+                                                                Settings settings,
+                                                                String country) {
     JiebaTokenizerFactory jiebaTokenizerFactory = new JiebaTokenizerFactory(indexSettings,
         environment,
         settings);
@@ -46,7 +47,8 @@ public class JiebaTokenizerFactory extends AbstractTokenizerFactory {
   public static TokenizerFactory getJiebaIndexTokenizerFactory(IndexSettings indexSettings,
                                                                Environment environment,
                                                                String s,
-                                                               Settings settings) {
+                                                               Settings settings,
+                                                               String country) {
     JiebaTokenizerFactory jiebaTokenizerFactory = new JiebaTokenizerFactory(indexSettings,
         environment,
         settings);
